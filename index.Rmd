@@ -13,4 +13,13 @@ output:
 
 I am interested in exploring data related to the process of recursive government. This explores the ways in which a civic engagement in government for the common person is not merely through elections, but through process such as petitions, town hall discussions, etc. In other words, I am interested in data that shows how people interact with their government other than through elections.
 
-I am also interested in data about Africa. 
+## Data and Proposal:
+
+Pursuing my interest of examining how the common person interacts with government, one post-election question to explore is:
+
+What is the average level of political interest for the average citizen?
+
+My hypothesis is that the level of interest in politics varies from person to person; however, beyond voting, the average citizen does not engage frequently in politics as an intentional stakeholder.
+
+I will use the CCES data from Harvard’s Dataverse to explore this hypothesis. In particular, I will examine how the `political interest` variable relates to main sources of information such as the `media use` variables (i.e Newspapers, TV, social media), as well as `voted` variables to measure voting turnout at the state and federal level. In terms of outcomes, the correlation of these variables can give us an idea of the involvement of the average individual in political life. If, for example, the correlation between `high political interest` and `voted` is lower than `low political interest` and `not voted` then this might suggest that most individuals have a low involvement in politics, otherwise the opposite is true. I would do this for the other mentioned variables as well to explore the different ways and mediums through which individuals interact with government, and later asses the degree of this involvement. 
+
