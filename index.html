@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1520,11 +1520,107 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="project-thoughts">Project thoughts</h2>
 <p>I am interested in exploring data related to the process of recursive government. This explores the ways in which a civic engagement in government for the common person is not merely through elections, but through process such as petitions, town hall discussions, etc. In other words, I am interested in data that shows how people interact with their government other than through elections.</p>
 <h2 id="data-and-proposal">Data and Proposal:</h2>
-<p>Pursuing my interest of examining how the common person interacts with government, one post-election question to explore is:</p>
-<p>What is the average level of political interest for the average citizen?</p>
-<p>My hypothesis is that the level of interest in politics varies from person to person; however, beyond voting, the average citizen does not engage frequently in politics as an intentional stakeholder.</p>
-<p>I will use the CCES data from Harvard’s Dataverse to explore this hypothesis. In particular, I will examine how the <code>political interest</code> variable relates to main sources of information such as the <code>media use</code> variables (i.e Newspapers, TV, social media), as well as <code>voted</code> variables to measure voting turnout at the state and federal level. In terms of outcomes, the correlation of these variables can give us an idea of the involvement of the average individual in political life. If, for example, the correlation between <code>high political interest</code> and <code>voted</code> is lower than <code>low political interest</code> and <code>not voted</code> then this might suggest that most individuals have a low involvement in politics, otherwise the opposite is true. I would do this for the other mentioned variables as well to explore the different ways and mediums through which individuals interact with government, and later asses the degree of this involvement.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>On September 22, 2011, Obama’s administration launched a petition website called <a href="https://petitions.trumpwhitehouse.archives.gov/">“We the People”</a>, where any American citizen could start a petition and collect signatures from fellow citizens. This petition website was linked to the official White House website, and if a petition got 100000 signatures in 30 days, then they would get an official response from the White House. However, as the Biden administration took office on January 20, 2021, the website was taken down and is now still defunct. Still, in the 10 years that it ran, lots of data was collected about the petitions and I will be exploring this dataset. (<a href="https://www.datalumos.org/datalumos/project/100456/version/V3/view">DATA Lumos - ICPSR</a>)</p>
+<p>The website was created by the Obama administration with intention to further open the government and satisfy the first amendment that guarantees the right “to petition the Government for a redress of grievances”. Evidently, a question then follows to know:</p>
+<p>What was the impact of public petitioning through “We The People”?</p>
+<p>I argue that this public petitioning was ineffective because people are unwilling to sign petitions. This might be due to a number of reasons, but my theory is that the online availability of a petition software makes petitioning too broad and too varied to be able to garner significant signatures, especially because this online tool does not enable reach out features or a form of advertising a user’s petition. In other words, people are unlikely to sign a petition online that they do not have any particular attachment to, so there is simply a lack of signature via this particular online medium (“We The People”).</p>
+<p>The dataset I explore, for the moment about the petitions from 2011 - 2016, my variable of interest is <code>signature_count</code> which is measured according to the number of signatures a petition gets. My outcome variable is <code>status</code> that determines whether the petition was reviewed or not. To validate my hypothesis, the general pattern would be that on average, more petitions have a low <code>signature_count</code> and therefore are not reviewed under <code>status</code>. My hypothesis would be incorrect if there are more petitions with a high <code>signature_count</code> with a positive <code>status</code> than there are petitions with a low <code>signature_count</code> with a negative <code>status</code>.</p>
+<h2 id="one-analysis">One Analysis</h2>
+<p>The <code>status</code> outcome variable is determined by a threshold of signatures received. The threshold to recieve a positive response in <code>status</code> was first 5000 when the site came out, then pushed to 25000 in 2011, then ultimately became 10000 in 2013. Since I am working on the dataset from 2011 to 2016, I will be analysing the <code>status</code> set to 5000 and 25000. (I will later explore the full 28 GB dataset for the entire time range up to 2021, where the <code>status</code> was 100000)</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>[1] TRUE</code></pre>
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
+</div>
+<p>We notice that most petitions never got enough signatures and most of them never passed the 25,000 response threshold. More exploration of the full dataset is needed to validate my hypothesis, but so far the data is consistent with my hypothesis that most petitions online on “We The People” did not get enough <code>signature_count</code> to have a positive <code>status</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Signatures</th>
+<th style="text-align: right;">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Over 25000</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Under 25000</td>
+<td style="text-align: right;">114</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Under 5000</td>
+<td style="text-align: right;">353</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="code">Code</h1>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dbi.r-dbi.org'>DBI</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://downloads.mariadb.org/connector-c/'>RMySQL</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dbi.r-dbi.org/reference/dbConnect.html'>dbConnect</a></span><span class='op'>(</span><span class='fu'>RMySQL</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/RMySQL/man/MySQLDriver-class.html'>MySQL</a></span><span class='op'>(</span><span class='op'>)</span>, dbname <span class='op'>=</span> <span class='st'>"petitions_db"</span>, </span>
+<span>                 host <span class='op'>=</span> <span class='st'>"localhost"</span>, </span>
+<span>                 user <span class='op'>=</span> <span class='st'>"root"</span>, </span>
+<span>                 password <span class='op'>=</span> <span class='st'>"braveio1"</span>, </span>
+<span>                 port <span class='op'>=</span> <span class='fl'>3306</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>query_petitions</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dbi.r-dbi.org/reference/dbSendQuery.html'>dbSendQuery</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"SELECT * FROM petitions_db.wtp_data_petitions;"</span><span class='op'>)</span></span>
+<span><span class='va'>petitions</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://dbi.r-dbi.org/reference/dbFetch.html'>dbFetch</a></span><span class='op'>(</span><span class='va'>query_petitions</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbClearResult.html'>dbClearResult</a></span><span class='op'>(</span><span class='va'>query_petitions</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbDisconnect.html'>dbDisconnect</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>label1</span> <span class='op'>&lt;-</span> <span class='st'>"5,000 response threshold"</span></span>
+<span><span class='va'>label2</span> <span class='op'>&lt;-</span> <span class='st'>"25,000 response threshold"</span></span>
+<span></span>
+<span><span class='va'>wrapped_label1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_wrap.html'>str_wrap</a></span><span class='op'>(</span><span class='va'>label1</span>, width <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span></span>
+<span><span class='va'>wrapped_label2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_wrap.html'>str_wrap</a></span><span class='op'>(</span><span class='va'>label2</span>, width <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>threshold_count</span> <span class='op'>&lt;-</span> <span class='va'>petitions</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>signature_count</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>5000</span>, color <span class='op'>=</span> <span class='st'>"blue"</span>, linetype <span class='op'>=</span> <span class='st'>"dashed"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>      <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>15000</span>, y <span class='op'>=</span> <span class='fl'>250</span>, label <span class='op'>=</span> <span class='va'>wrapped_label1</span><span class='op'>)</span>, </span>
+<span>            vjust <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>, hjust <span class='op'>=</span> <span class='fl'>1</span>, size <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  </span>
+<span>  </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>25000</span>, color <span class='op'>=</span> <span class='st'>"red"</span>, linetype <span class='op'>=</span> <span class='st'>"dashed"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>      <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>40000</span>, y <span class='op'>=</span> <span class='fl'>250</span>, label <span class='op'>=</span> <span class='va'>wrapped_label2</span><span class='op'>)</span>, </span>
+<span>            vjust <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>, hjust <span class='op'>=</span> <span class='fl'>1</span>, size <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>  <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Siganature Count"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Petitions"</span></span>
+<span>  <span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>threshold_count</span></span>
+<span><span class='va'>reviewed</span> <span class='op'>&lt;-</span> <span class='va'>petitions</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    Signatures <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span></span>
+<span>      <span class='va'>signature_count</span> <span class='op'>&lt;</span> <span class='fl'>5000</span> <span class='op'>~</span> <span class='st'>"Under 5000"</span>,</span>
+<span>      <span class='va'>signature_count</span> <span class='op'>&lt;</span> <span class='fl'>25000</span> <span class='op'>~</span> <span class='st'>"Under 25000"</span>,</span>
+<span>      <span class='va'>signature_count</span> <span class='op'>&gt;</span> <span class='fl'>25000</span> <span class='op'>~</span> <span class='st'>"Over 25000"</span>,</span>
+<span>    <span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Signatures</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span></span>
+<span>    count <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span>,</span>
+<span>  <span class='op'>)</span> </span>
+<span></span>
+<span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='va'>reviewed</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

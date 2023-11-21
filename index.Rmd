@@ -7,6 +7,9 @@ output:
     self_contained: false
 ---
 
+```{r setup, include = FALSE}
+options(width = 100)
+```
 
 
 ## Project thoughts
@@ -15,11 +18,101 @@ I am interested in exploring data related to the process of recursive government
 
 ## Data and Proposal:
 
-Pursuing my interest of examining how the common person interacts with government, one post-election question to explore is:
+On September 22, 2011, Obama's administration launched a petition website called ["We the People"](https://petitions.trumpwhitehouse.archives.gov/), where any American citizen could start a petition and collect signatures from fellow citizens. This petition website was linked to the official White House website, and if a petition got 100000 signatures in 30 days, then they would get an official response from the White House. However, as the Biden administration took office on January 20, 2021, the website was taken down and is now still defunct. Still, in the 10 years that it ran, lots of data was collected about the petitions and I will be exploring this dataset. ([DATA Lumos - ICPSR](https://www.datalumos.org/datalumos/project/100456/version/V3/view))
 
-What is the average level of political interest for the average citizen?
+The website was created by the Obama administration with intention to further open the government and satisfy the first amendment that guarantees the right "to petition the Government for a redress of grievances". Evidently, a question then follows to know:
 
-My hypothesis is that the level of interest in politics varies from person to person; however, beyond voting, the average citizen does not engage frequently in politics as an intentional stakeholder.
+What was the impact of public petitioning through "We The People"?
 
-I will use the CCES data from Harvard’s Dataverse to explore this hypothesis. In particular, I will examine how the `political interest` variable relates to main sources of information such as the `media use` variables (i.e Newspapers, TV, social media), as well as `voted` variables to measure voting turnout at the state and federal level. In terms of outcomes, the correlation of these variables can give us an idea of the involvement of the average individual in political life. If, for example, the correlation between `high political interest` and `voted` is lower than `low political interest` and `not voted` then this might suggest that most individuals have a low involvement in politics, otherwise the opposite is true. I would do this for the other mentioned variables as well to explore the different ways and mediums through which individuals interact with government, and later asses the degree of this involvement. 
+I argue that this public petitioning was ineffective because people are unwilling to sign petitions. This might be due to a number of reasons, but my theory is that the online availability of a petition software makes petitioning too broad and too varied to be able to garner significant signatures, especially because this online tool does not enable reach out features or a form of advertising a user's petition. In other words, people are unlikely to sign a petition online that they do not have any particular attachment to, so there is simply a lack of signature via this particular online medium ("We The People").
+
+The dataset I explore, for the moment about the petitions from 2011 - 2016, my variable of interest is `signature_count` which is measured according to the number of signatures a petition gets. My outcome variable is `status` that determines whether the petition was reviewed or not. To validate my hypothesis, the general pattern would be that on average, more petitions have a low `signature_count` and therefore are not reviewed under `status`. My hypothesis would be incorrect if there are more petitions with a high `signature_count` with a positive `status` than there are petitions with a low `signature_count` with a negative `status`.
+
+
+## One Analysis
+
+The `status` outcome variable is determined by a threshold of signatures received. The threshold to recieve a positive response in `status` was first 5000 when the site came out, then pushed to 25000 in 2011, then ultimately became 10000 in 2013. Since I am working on the dataset from 2011 to 2016, I will be analysing the `status` set to 5000 and 25000. (I will later explore the full 28 GB dataset for the entire time range up to 2021, where the `status` was 100000)
+
+```{r, echo=FALSE}
+library(DBI)
+library(RMySQL)
+
+con <- dbConnect(RMySQL::MySQL(), dbname = "petitions_db", 
+                 host = "localhost", 
+                 user = "root", 
+                 password = "braveio1", 
+                 port = 3306)
+
+query_petitions <- dbSendQuery(con, "SELECT * FROM petitions_db.wtp_data_petitions;")
+petitions<- dbFetch(query_petitions)
+dbClearResult(query_petitions)
+
+dbDisconnect(con)
+```
+
+```{r, echo=FALSE}
+library(ggplot2)
+library(tidyverse)
+
+label1 <- "5,000 response threshold"
+label2 <- "25,000 response threshold"
+
+wrapped_label1 <- str_wrap(label1, width = 15)
+wrapped_label2 <- str_wrap(label2, width = 15)
+
+threshold_count <- petitions |>
+  ggplot(mapping = aes(x = signature_count)) +
+  geom_histogram() +
+  
+  geom_vline(xintercept = 5000, color = "blue", linetype = "dashed") +
+      geom_text(aes(x = 15000, y = 250, label = wrapped_label1), 
+            vjust = -1, hjust = 1, size = 3) + 
+  
+  
+  geom_vline(xintercept = 25000, color = "red", linetype = "dashed") +
+      geom_text(aes(x = 40000, y = 250, label = wrapped_label2), 
+            vjust = -1, hjust = 1, size = 3)  +
+  labs(
+    x = "Siganature Count",
+    y = "Petitions"
+  )
+
+threshold_count
+```
+
+We notice that most petitions never got enough signatures and most of them never passed the 25,000 response threshold. More exploration of the full dataset is needed to validate my hypothesis, but so far the data is consistent with my hypothesis that most petitions online on "We The People" did not get enough `signature_count` to have a positive `status`.
+
+```{r, echo=FALSE}
+reviewed <- petitions |>
+  mutate(
+    Signatures = case_when(
+      signature_count < 5000 ~ "Under 5000",
+      signature_count < 25000 ~ "Under 25000",
+      signature_count > 25000 ~ "Over 25000",
+    )
+  ) |>
+  group_by(Signatures) |>
+  summarise(
+    count = n(),
+  ) 
+
+knitr::kable(reviewed)
+
+```
+ 
+
+
+# Code
+
+```{r print-code, ref.label=knitr::all_labels(), echo = TRUE, eval=FALSE}
+
+```
+
+
+
+
+
+
+
+
 
