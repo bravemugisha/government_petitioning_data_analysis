@@ -1,7 +1,7 @@
 ---
-title: "Gov 50 Final Project"
+title: "Measuring the Effeciency of Online Petioning on the Official White House Petitioning Website 'We The People'" 
 author: "Brave Mugisha"
-description: "My final project"
+# description: "My final project"
 output:
   distill::distill_article:
     self_contained: false
@@ -11,44 +11,93 @@ output:
 options(width = 100)
 ```
 
+## Context and Data:
 
-## Project thoughts
+### Context:
 
-I am interested in exploring data related to the process of recursive government. This explores the ways in which a civic engagement in government for the common person is not merely through elections, but through process such as petitions, town hall discussions, etc. In other words, I am interested in data that shows how people interact with their government other than through elections.
+On September 22, 2011, Obama's administration launched a petition website called ["We the People"](https://petitions.trumpwhitehouse.archives.gov/), where any American citizen could start a petition and collect signatures from fellow citizens. This petition website was linked to the official White House website, and if a petition got 100000 signatures in 30 days, then they would get an official response from the White House. However, as the Biden administration took office on January 20, 2021, the website was taken down and is now still defunct. Still, in the 10 years that it ran, most of the petition data was collected and I will be exploring and analyzing this data. 
 
-## Data and Proposal:
+### Data:
 
-On September 22, 2011, Obama's administration launched a petition website called ["We the People"](https://petitions.trumpwhitehouse.archives.gov/), where any American citizen could start a petition and collect signatures from fellow citizens. This petition website was linked to the official White House website, and if a petition got 100000 signatures in 30 days, then they would get an official response from the White House. However, as the Biden administration took office on January 20, 2021, the website was taken down and is now still defunct. Still, in the 10 years that it ran, lots of data was collected about the petitions and I will be exploring this dataset. ([DATA Lumos - ICPSR](https://www.datalumos.org/datalumos/project/100456/version/V3/view))
+I will be using data from ([DATA Lumos - ICPSR](https://www.datalumos.org/datalumos/project/100456/version/V3/view)) which gathered and collected the official database dump that the government released when the site went down (the website was open-source from Obama's [Open Government Initative](https://obamawhitehouse.archives.gov/open), meaning that the entire database was publicly accessible). This data set contains roughly 8449 petition entries that span over 10 years, and contains the following variables in the petitions table.
 
-The website was created by the Obama administration with intention to further open the government and satisfy the first amendment that guarantees the right "to petition the Government for a redress of grievances". Evidently, a question then follows to know:
+Name                 Description
+-------------------- -------------------------------------------------------------------------------------
+`serial`             serial number of the petition 
+`id`                 id number of the petition
+`title`              the title submitted by the petitioner
+`body`               the description and content submitted by the petitioner     
+`signature_threshold`the number of signatures required to get a response from the administration
+`signature_count`    the number of signatures received 
+`signature_needed`   the number of signatures remaining to reach the `signature_threshold`
+`url`                the link to the petition (now defunct and redirects to White House website for most, not all petitions)
+`deadline`           the amount of in which to meet the threshold before the petition expires (30 days for virtually all petitions) 
+`status`             the outcome of the petition (open, reviewed, under review, responded, pending response, flagged, or closed)
+`created`            number indicating when the petition was created
 
-What was the impact of public petitioning through "We The People"?
-
-I argue that this public petitioning was ineffective because people are unwilling to sign petitions. This might be due to a number of reasons, but my theory is that the online availability of a petition software makes petitioning too broad and too varied to be able to garner significant signatures, especially because this online tool does not enable reach out features or a form of advertising a user's petition. In other words, people are unlikely to sign a petition online that they do not have any particular attachment to, so there is simply a lack of signature via this particular online medium ("We The People").
-
-The dataset I explore, for the moment about the petitions from 2011 - 2016, my variable of interest is `signature_count` which is measured according to the number of signatures a petition gets. My outcome variable is `status` that determines whether the petition was reviewed or not. To validate my hypothesis, the general pattern would be that on average, more petitions have a low `signature_count` and therefore are not reviewed under `status`. My hypothesis would be incorrect if there are more petitions with a high `signature_count` with a positive `status` than there are petitions with a low `signature_count` with a negative `status`.
+(It should be noted that the threshold `signature_threshold` to receive a response in `status` was first 5000 when the site came out, then pushed to 25000 in 2011, then ultimately became [10000 in 2013](https://obamawhitehouse.archives.gov/blog/2013/01/15/why-we-re-raising-signature-threshold-we-people). Since I am working on the full data set that contains all these three thresholds, I will be prioritizing the 100000 threshold that spans the longest time from 2013 to 2023, though I will also keep mark of the other two thresholds.)
 
 
-## One Analysis
+## Research Question and Hypothetical
 
-The `status` outcome variable is determined by a threshold of signatures received. The threshold to recieve a positive response in `status` was first 5000 when the site came out, then pushed to 25000 in 2011, then ultimately became 10000 in 2013. Since I am working on the dataset from 2011 to 2016, I will be analysing the `status` set to 5000 and 25000. (I will later explore the full 28 GB dataset for the entire time range up to 2021, where the `status` was 100000)
+### Resarch Question
+
+The question is simple: How effective was petitioning through "We The People"? This is an interesting question because an overwhelming majority of Americans want this official website to be brought back, in fact there is a promising [petition](https://www.change.org/p/joseph-r-biden-restore-the-white-house-s-we-the-people-petition-site) demanding current president Joe Biden to restore the website. That said, it is important to consider if bringing back this tool is worthwhile. 
+
+In a broader and more principled perspective, the website was created by the Obama administration with intention to further open the government and satisfy the first amendment right that guarantees the right "to petition the Government for a redress of grievances". In other words, it is obvious that petitioning is a fundamental right guaranteed by the Constitution. However, our study aims to question whether "We The People" is, or was, an effective approach at satisfying this fundamental right. 
+
+### Main Hypothesis:
+
+I argue that this public petitioning website was ineffective because public petition on an online medium is too broad and too varied in a way that makes the impact of a single signature minimal, almost insignificant. In other words, we have the general intuition that the more signatures a petition gets, the more likely it is to reach the threshold; however, this is not necessarily the case online and on "We The People". Unless there is aggressive marketing of the petition or some other form of outreach that maximizes visibility, I hypothesize that people are to sign a petition online that they do not have any particular attachment to, and even if they do, individual signatures only minimally impact the likelihood of meeting the threshold. 
+
+This hypothesis might be true because the broad and varied nature of online petitioning on "We The People" seems to imply a lack of signatures for the majority of petitions. In other words, because the website was online and accessible, any American could petition any thing, any where, and at any time. This lead to a form of disorganization and variety that made most petitions 1) unserious, 2)out-of-scope foreign issues, 4)heavy workloads for reviewers, 5) producing no interest for the average citizen, and other problems that ensue from such open-access and variety. In general, most petitions were not worth signing as they were of no interest for the average citizen; therefore, the signatures they managed to get where almost insignificant. A few examples of such petitions can be a petition requesting to [change the national anthem to My Little Pony's theme song Friendship is Magic](https://petitions.obamawhitehouse.archives.gov/petition/change-fine-nations-anthem-theme-my-little-pony-friendship-magic/), or a petition recognizing an [international talk like a pirate day](https://petitions.obamawhitehouse.archives.gov/petition/recognize-international-talk-pirate-day-september-19/). This is goes in stark contrast to offline, formal written petitions that are often signed by organized, narrow groups with extreme interest and purpose for the topic of the petition. In fact, most of the successful petitions on "We The People" were those that replicated these offline group features of purpose, high interest, and high participation. 
+
+
+## Analysis and Results
+
+My variable of interest is `signature_count` which is measures the number of signatures a petition gets. My outcome variable is `status` that determines whether the petition had a response or not. To validate my hypothesis, the general pattern would be that most petitions have a low `signature_count` and therefore have no response under `status`. My hypothesis would be incorrect if there are more petitions with a high `signature_count` with a positive `status` than there are petitions with a low `signature_count` with a negative `status`.
+
+The `status` outcome variable is determined by a threshold of signatures received. The threshold to receive a positive response in `status` was first 5000 when the site came out, then pushed to 25000 in 2011, then ultimately became 10000 in 2013. Since I am working on the full data set that contains all these three thresholds, I will be prioritizing the 100000 threshold that spans the longest time from 2013 to 2023, though I will also keep mark of the other two thresholds.
 
 ```{r, echo=FALSE}
 library(DBI)
 library(RMySQL)
 
-con <- dbConnect(RMySQL::MySQL(), dbname = "petitions_db", 
+con <- dbConnect(RMySQL::MySQL(), dbname = "all_petitions_db", 
                  host = "localhost", 
                  user = "root", 
                  password = "braveio1", 
                  port = 3306)
 
-query_petitions <- dbSendQuery(con, "SELECT * FROM petitions_db.wtp_data_petitions;")
-petitions<- dbFetch(query_petitions)
+query_petitions <- dbSendQuery(con, "SELECT * FROM all_petitions_db.wtp_data_petitions;")
+petitions<- dbFetch(query_petitions, n = Inf)
 dbClearResult(query_petitions)
 
 dbDisconnect(con)
 ```
+Let us first visualize the main outcome variable `status` as it relates to our variable of interest `signature_count`.
+
+```{r, echo=FALSE}
+library(infer)
+library(ggplot2)
+
+status_viz <- ggplot(petitions, aes(x = signature_count, y = status)) +
+  geom_point() +
+  geom_vline(xintercept = 5000, color = "blue", linetype = "dashed") +
+  geom_vline(xintercept = 25000, color = "red", linetype = "dashed") +
+  geom_vline(xintercept = 100000, color = "green", linetype = "dashed") +
+  scale_x_log10() 
+  # scale_x_continuous(labels = scales::comma, 
+  #                   limits = c(0, 1750000))
+
+status_viz
+
+```
+Here the blue line represents the 25000 `signature_threshold`, while the red line represents the 50000 `signature_threshold`, and more importantly, the green line represents the 100000 `signature_threshold`.
+
+We notice that the number of petitions that have a "responded" `status` are 
+quite few compared to other non-response statuses (open, pending response, or reviewed), 
+even if they passed the 100000 (1e+05) threshold. There could be many reasons why the White House responded or did not respond, however, the main reason would be because the petitions did not meet the `signature_threshold`. Let us therefore analyse the number of signatures that most petitions got. 
 
 ```{r, echo=FALSE}
 library(ggplot2)
@@ -56,9 +105,11 @@ library(tidyverse)
 
 label1 <- "5,000 response threshold"
 label2 <- "25,000 response threshold"
+label3 <- "100000 response threshold"
 
 wrapped_label1 <- str_wrap(label1, width = 15)
 wrapped_label2 <- str_wrap(label2, width = 15)
+wrapped_label3 <- str_wrap(label3, width = 15)
 
 threshold_count <- petitions |>
   ggplot(mapping = aes(x = signature_count)) +
@@ -72,24 +123,37 @@ threshold_count <- petitions |>
   geom_vline(xintercept = 25000, color = "red", linetype = "dashed") +
       geom_text(aes(x = 40000, y = 250, label = wrapped_label2), 
             vjust = -1, hjust = 1, size = 3)  +
+  
+    geom_vline(xintercept = 100000, color = "green", linetype = "dashed") +
+      geom_text(aes(x = 100000, y = 250, label = wrapped_label3), 
+            vjust = -1, hjust = 1, size = 3)  +
   labs(
+    title = "Number of Petitions and Signatures They Recieved",
     x = "Siganature Count",
     y = "Petitions"
-  )
+  ) +
+
+  scale_x_continuous(labels = scales::comma,
+                    limits = c(0, 150000))
 
 threshold_count
 ```
 
-We notice that most petitions never got enough signatures and most of them never passed the 25,000 response threshold. More exploration of the full dataset is needed to validate my hypothesis, but so far the data is consistent with my hypothesis that most petitions online on "We The People" did not get enough `signature_count` to have a positive `status`.
+We notice that most petitions never got enough signatures and most of them never passed the 100000 response threshold. More exploration of the full dataset is needed to validate my hypothesis, but so far the data is consistent with my hypothesis that most petitions online on "We The People" did not get enough signatures (`signature_count`) to have a positive response `status` from the White House. As the below table for this graph shows, out of the 8000+ petitions posted online on "We The People", only 267 passed the 100000 threshold. This could be due to a number of reasons, but my hypothesis is that individual signatures are not significant in meeting the threshold. 
 
 ```{r, echo=FALSE}
 reviewed <- petitions |>
   mutate(
     Signatures = case_when(
       signature_count < 5000 ~ "Under 5000",
-      signature_count < 25000 ~ "Under 25000",
-      signature_count > 25000 ~ "Over 25000",
+      5000 <= signature_count & signature_count < 25000 ~ "Between 5000 and 25000",
+      25000 <= signature_count & signature_count < 100000 ~ "Between 25000 and 100000",
+      signature_count >= 100000 ~ "Over 100000"
     )
+  ) |>
+  mutate(
+    Signatures = factor(Signatures, levels = c("Under 5000", "Between 5000 and 25000", 
+                                                "Between 25000 and 100000", "Over 100000"))
   ) |>
   group_by(Signatures) |>
   summarise(
@@ -99,7 +163,43 @@ reviewed <- petitions |>
 knitr::kable(reviewed)
 
 ```
+
  
+
+Let us do linear regression between the "status" binary variable that is either `Responded` or `Not Responded` holding the number of signatures `signature_count` as a predictor.
+
+```{r, echo=FALSE}
+reg_petitions <- petitions |>
+  filter(!is.na(status)) |>
+  filter(!is.na(signature_count)) |>
+  mutate(
+    response = case_when(
+      status == "responded" ~ "Responded",
+      status == "Reviewed" ~ "Not Responded",
+      status == "Under Review" ~ "Not Responded",
+      status == "pending response" ~ "Not Responded",
+      status == "open" ~ "Not Responded",
+      status == "Closed" ~ "Not Responded",
+      status == "closed" ~ "Not Responded",
+      status == "Flagged" ~ "Not Responded"
+    ) 
+  ) |>
+    mutate(
+      rsp = if_else(response == "Responded", 1, 0)
+    )
+
+response_fit <- glm(rsp ~ signature_count, data = reg_petitions, family = "binomial")
+
+result <- summary(response_fit)
+
+result
+```
+Here, `signature_count` has a positive coefficient of $1.249e-05$ as we would expect because it is only intuitive that the more signatures a petition, the more it is close to reaching the threshold. However, this coefficient is very small at $0.000001249$ meaning that the change in the likelihood of getting a response per additional signature is minimal. This result is also statistically significant with a p-value of $3.76e-16 *** < 0.05$. (I could not get model summary to display these values because they are so small, it just displays 0).
+
+
+## Conclusion 
+
+The results of the data analysis shows that the hypothesis is plausible. Individual signatures do not seem to contribute significantly to petitions on "We The People", and most petitions on the website never got a response. Therefore, in sum, the "We The People" petitioning website was not significantly efficient as a medium of petitioning.  Granted, this research is limited in the sense that I did not analyse the contend and body of each petition, such as analyzing frequent keywords to separate the petitions by topics that might also be a profounder that explains this low effectiveness of individual signatures and the general lack thereof. With more time and ressources, I would adress this threat to inference by using machine learning models to structure the contents of each petitions in a way that allows us to use them in the research as potential causal variables. 
 
 
 # Code
