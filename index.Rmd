@@ -194,8 +194,7 @@ result <- summary(response_fit)
 
 result
 ```
-Here, `signature_count` has a positive coefficient of $1.249e-05$ as we would expect because it is only intuitive that the more signatures a petition, the more it is close to reaching the threshold and getting a positive response `status`. However, this coefficient is very small at $0.000001249$ meaning that the change in the likelihood of getting a response per additional signature is minimal. This result is also statistically significant with a p-value of $3.76e-16 *** < 0.05$. (I could not get model summary to display these values because they are so small, it just displays 0).
-
+Here, `signature_count` has a positive coefficient of $1.249e-05$ as we would expect because it is only intuitive that the more signatures a petition, the more it is close to reaching the threshold and getting a positive response `status`. However, this coefficient is very small at $0.000001249$ meaning that the change in the likelihood of getting a response per additional signature is minimal. This result is also statistically significant with a p-value of $3.76e-16 *** < 0.05$.
 
 ## Conclusion 
 
