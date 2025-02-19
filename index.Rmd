@@ -1,5 +1,5 @@
 ---
-title: "Measuring the Effeciency of Online Petioning on the Official White House Petitioning Website 'We The People'" 
+title: "Measuring the Efficiency of Online Petitioning on the Official White House Petitioning Website ‘We The People’" 
 author: "Brave Mugisha"
 # description: "My final project"
 output:
@@ -15,7 +15,7 @@ options(width = 100)
 
 ### Context:
 
-On September 22, 2011, Obama's administration launched a petition website called ["We the People"](https://petitions.trumpwhitehouse.archives.gov/), where any American citizen could start a petition and collect signatures from fellow citizens. This petition website was linked to the official White House website, and if a petition got 100000 signatures in 30 days, then they would get an official response from the White House. However, as the Biden administration took office on January 20, 2021, the website was taken down and is now still defunct. Still, in the 10 years that it ran, most of the petition data was collected and I will be exploring and analyzing this data. 
+On September 22, 2011, Obama's administration launched a petition website called ["We the People"](https://petitions.trumpwhitehouse.archives.gov/), where any American citizen could start a petition and collect signatures from fellow citizens. This petition website was linked to the official White House website, and if a petition got 100,000 signatures in 30 days, then it would receive an official response from the White House. However, as the Biden administration took office on January 20, 2021, the website was taken down and is now defunct. Still, in the 10 years that it ran, most of the petition data was collected and I will be exploring and analyzing this data.
 
 ### Data:
 
@@ -194,7 +194,7 @@ result <- summary(response_fit)
 
 result
 ```
-Here, `signature_count` has a positive coefficient of $1.249e-05$ as we would expect because it is only intuitive that the more signatures a petition, the more it is close to reaching the threshold. However, this coefficient is very small at $0.000001249$ meaning that the change in the likelihood of getting a response per additional signature is minimal. This result is also statistically significant with a p-value of $3.76e-16 *** < 0.05$. (I could not get model summary to display these values because they are so small, it just displays 0).
+Here, `signature_count` has a positive coefficient of $1.249e-05$ as we would expect because it is only intuitive that the more signatures a petition, the more it is close to reaching the threshold and getting a positive response `status`. However, this coefficient is very small at $0.000001249$ meaning that the change in the likelihood of getting a response per additional signature is minimal. This result is also statistically significant with a p-value of $3.76e-16 *** < 0.05$. (I could not get model summary to display these values because they are so small, it just displays 0).
 
 
 ## Conclusion 
